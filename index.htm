@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Click link to see emoji</title>
+  <style>
+    /* reuse the same minimal styles as above */
+    body { font-family:system-ui; padding:40px; background:#fffafc; }
+    a.fake-link { color:#d6336c; font-weight:700; cursor:pointer; text-decoration:none; padding:8px 12px; border-radius:8px; border:2px solid transparent; }
+    a.fake-link:hover { background:#ffeef2; }
+    /* modal styles (same as above, shorter) */
+    .backdrop { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.45); z-index:50; }
+    .card { background:white; padding:22px; border-radius:12px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.12); }
+    .emoji { font-size:64px; }
+    button { margin-top:12px; padding:8px 12px; border-radius:10px; border:0; cursor:pointer; font-weight:600; }
+  </style>
+</head>
+<body>
+  <p>Click this link to open a cute emoji pop-up: <a id="openLink" class="fake-link">Open surprise 💌</a></p>
+
+  <!-- hidden modal -->
+  <div id="backdrop" class="backdrop" style="display:none" role="dialog" aria-modal="true" aria-labelledby="emoTitle">
+    <div class="card">
+      <div class="emoji">🌸</div>
+      <h3 id="emoTitle">You found me!</h3>
+      <p style="color:#555">A little hello for your day And u have a great family in your life.<br>
+        And u proud U born in this sweet family<br>
+        So don't be anger cutie pie<br>
+        So PLZ give a smile on your face CUTIE PIE ✨</p>
+      <button id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const open = document.getElementById('openLink');
+    const backdrop = document.getElementById('backdrop');
+    const close = document.getElementById('closeBtn');
+
+    open.addEventListener('click', () => backdrop.style.display = 'flex');
+    close.addEventListener('click', () => backdrop.style.display = 'none');
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.style.display = 'none'; });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') backdrop.style.display = 'none'; });
+  </script>
+</body>
+</html>
